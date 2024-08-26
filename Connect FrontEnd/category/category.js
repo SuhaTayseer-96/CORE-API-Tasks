@@ -14,11 +14,18 @@ data.forEach(category => {
      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
    </div>
    <div class="card-body">
-<a href="../product/Product.html" onClick="setLocalStorage(${category.categoryId})" class="btn btn-primary">Show Products</a>
+<a href="/category/product/Product.html" onClick="store(${category.categoryId})" class="btn btn-primary">Show Products</a>
    </div>
  </div>`;
 
 });
     console.log(data);
+}
+function store(id) {
+  localStorage.categoryId = id;
+
+}
+function clearProduct(){
+  localStorage.removeItem("categoryId");
 }
 getAllCategory();
