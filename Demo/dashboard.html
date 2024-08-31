@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="row">
+    <h1>Category</h1>
+    <a  href="/AddCateg.html" >Add Category</a>
+    <!-- <button type="button"class="btn btn-primary" onclick="addCatg()">Add Category</button> -->
+    <table class="table">
+        <thead>
+          <tr> 
+            <th scope="col">ID</th>
+            <th scope="col">Category Name</th>
+            <th scope="col">Category Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+      </table>
+    <script>
+        async function getAllCategory() {
+    let url = "https://localhost:44330/api/Categories/getAllCategs";
+    let response = await fetch(url);    
+    let data = await response.json();
+
+    let tableBody = document.getElementById("tableBody"); 
+    tableBody.innerHTML = '';  
+
+    data.forEach(category => {
+        tableBody.innerHTML += `
+        <tr>
+            <td>${category.categoryId}</td>
+            <td>${category.categoryName}</td>
+            <td><img src="${category.categoryImage}" alt="${category.categoryName}" style="width: 50px;"></td>
+            <td>
+                <button onClick="editCategory(${category.categoryId})" class="btn btn-warning">Edit</button>
+            </td>
+        </tr>`;
+    });
+
+    console.log(data);
+}
+function editCategory(categoryId) {
+    // console.log(`Editing category ${categoryId}`);
+    localStorage.categoryId = categoryId;
+    window.location = "/UpdateProd.html";
+}
+
+getAllCategory();
+
+const postUrl = 'https://localhost:44330/api/Orders/getAllOrders';
+
+var form = document.getElementById('form'); 
+
+async function addCatg() {
+    event.preventDefault();
+
+    var formSwagger = new FormData(form);
+
+    let response = await fetch(postUrl, {
+        method: 'POST',
+        body: formSwagger
+    });
+
+    let data = response;
+    alert ("new category added successfully");
+}
+addCatg();
+
+    </script>
+    </body>
+</html>
