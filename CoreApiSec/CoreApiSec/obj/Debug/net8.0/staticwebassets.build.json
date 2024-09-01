@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "eCk9U6PY7u1MzCekELcO0V3CJyvtr+cXFh7chSCgJn8=",
+  "Source": "CoreApiSec",
+  "BasePath": "_content/CoreApiSec",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
