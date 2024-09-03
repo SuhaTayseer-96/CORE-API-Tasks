@@ -15,14 +15,24 @@
 const num = Number(localStorage.getItem('categoryId'));
 
 if (num == 0) {
-    var url = "https://localhost:44330/api/Products/getAllProducts";
+    // var url = "https://localhost:44330/api/Products/getAllProducts";  //change
+        var url = "https://localhost:7228/api/Products/getAllProducts"; 
 }
 else{
    var url = `https://localhost:44330/api/Products/getProductsBasedOnCategoryId/${num}`;
 }
         async function getAllProducts() {
-  let response = await fetch(url);    
-let data = await response.json();
+            var token = localStorage.getItem('jwtToken');
+            if (!token) {
+                alert("you need to login");
+                return;
+            }
+            var response = await fetch(url);
+            var result = await response.json();
+  let response11 = await fetch(url,{
+    'Authorization':`Bearer ${token}`,
+  });    
+let data = await response11.json();
 let cards = document.getElementById("container")
 
 data.forEach(product => {
